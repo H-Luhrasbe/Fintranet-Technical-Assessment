@@ -2,25 +2,27 @@ using System;
 using congestion.calculator;
 public class CongestionTaxCalculator
 {
-    /**
-         * Calculate the total toll fee for one day
-         *
-         * @param vehicle - the vehicle
-         * @param dates   - date and time of all passes on one day
-         * @return - the total congestion tax for that day
-         */
 
+    /// <summary>
+    /// Calculate the total toll fee for one day
+    /// </summary>
+    /// <param name="vehicle">the vehicle</param>
+    /// <param name="dates">date and time of all passes on one day</param>
+    /// <returns>the total congestion tax for that day</returns>
     public int GetTax(Vehicle vehicle, DateTime[] dates)
     {
+        if (dates == null || dates.Length == 0) return 0;
+
         DateTime intervalStart = dates[0];
         int totalFee = 0;
+
         foreach (DateTime date in dates)
         {
             int nextFee = GetTollFee(date, vehicle);
             int tempFee = GetTollFee(intervalStart, vehicle);
 
-            long diffInMillies = date.Millisecond - intervalStart.Millisecond;
-            long minutes = diffInMillies / 1000 / 60;
+            TimeSpan diff = date - intervalStart;
+            double minutes = diff.TotalMinutes;
 
             if (minutes <= 60)
             {
@@ -31,8 +33,10 @@ public class CongestionTaxCalculator
             else
             {
                 totalFee += nextFee;
+                intervalStart = date; // important: reset interval start after 60 min
             }
         }
+
         if (totalFee > 60) totalFee = 60;
         return totalFee;
     }
