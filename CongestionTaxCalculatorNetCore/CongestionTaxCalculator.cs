@@ -56,20 +56,20 @@ public class CongestionTaxCalculator
     public int GetTollFee(DateTime date, Vehicle vehicle)
     {
         if (IsTollFreeDate(date) || IsTollFreeVehicle(vehicle)) return 0;
+        
+        int totalMinutes = date.Hour * 60 + date.Minute;
 
-        int hour = date.Hour;
-        int minute = date.Minute;
+        if (totalMinutes >= 360 && totalMinutes <= 389) return 8;   // 06:00–06:29
+        if (totalMinutes >= 390 && totalMinutes <= 419) return 13;  // 06:30–06:59
+        if (totalMinutes >= 420 && totalMinutes <= 479) return 18;  // 07:00–07:59
+        if (totalMinutes >= 480 && totalMinutes <= 509) return 13;  // 08:00–08:29
+        if (totalMinutes >= 510 && totalMinutes <= 899) return 8;   // 08:30–14:59
+        if (totalMinutes >= 900 && totalMinutes <= 929) return 13;  // 15:00–15:29
+        if (totalMinutes >= 930 && totalMinutes <= 1019) return 18; // 15:30–16:59
+        if (totalMinutes >= 1020 && totalMinutes <= 1079) return 13; // 17:00–17:59
+        if (totalMinutes >= 1080 && totalMinutes <= 1109) return 8;  // 18:00–18:29
 
-        if (hour == 6 && minute >= 0 && minute <= 29) return 8;
-        else if (hour == 6 && minute >= 30 && minute <= 59) return 13;
-        else if (hour == 7 && minute >= 0 && minute <= 59) return 18;
-        else if (hour == 8 && minute >= 0 && minute <= 29) return 13;
-        else if (hour >= 8 && hour <= 14 && minute >= 30 && minute <= 59) return 8;
-        else if (hour == 15 && minute >= 0 && minute <= 29) return 13;
-        else if (hour == 15 && minute >= 0 || hour == 16 && minute <= 59) return 18;
-        else if (hour == 17 && minute >= 0 && minute <= 59) return 13;
-        else if (hour == 18 && minute >= 0 && minute <= 29) return 8;
-        else return 0;
+        return 0; // all other times
     }
 
     private Boolean IsTollFreeDate(DateTime date)
