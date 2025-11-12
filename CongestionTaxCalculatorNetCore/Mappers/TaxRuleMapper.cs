@@ -15,7 +15,7 @@ public static class TaxRuleMapper
     {
         if (entity == null) throw new ArgumentNullException(nameof(entity));
 
-        return new TaxRule
+        var rule = new TaxRule
         {
             DailyMax = entity.DailyMax,
             Intervals = entity.Intervals
@@ -33,7 +33,12 @@ public static class TaxRuleMapper
                 entity.TollFreeDates.Any(t => t.Date.Date == date.Date),
             TollFreeVehicleTypes = entity.TollFreeVehicles
                 .Select(v => v.VehicleType)
+                .ToList(),
+            TollFreeDates = entity.TollFreeDates
+                .Select(t => t.Date.Date)
                 .ToList()
         };
+
+        return rule;
     }
 }

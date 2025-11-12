@@ -11,73 +11,107 @@ public class CongestionTaxCalculator
     private readonly TaxRule _taxRule;
 
     /// <summary>
-    /// Constructor
+    /// Initializes a new instance of the CongestionTaxCalculator with a specific tax rule
     /// </summary>
-    /// <param name="taxRule">TaxRule object containing intervals, daily max, and toll-free dates</param>
+    /// <param name="taxRule">The TaxRule containing intervals, toll-free vehicles and dates</param>
     public CongestionTaxCalculator(TaxRule taxRule)
     {
         _taxRule = taxRule ?? throw new ArgumentNullException(nameof(taxRule));
     }
 
     /// <summary>
-    /// Calculate total congestion tax for a vehicle on a single day.
+    /// Calculates total congestion tax for a vehicle on a given day
     /// </summary>
-    /// <param name="vehicle">Vehicle</param>
-    /// <param name="dates">All pass timestamps on the day (must be same day)</param>
-    /// <returns>Total tax amount (capped at daily max)</returns>
+    /// <param name="vehicle">The vehicle being charged</param>
+    /// <param name="dates">All timestamps the vehicle passes toll points on a single day</param>
+    /// <returns>Total tax amount for the day (capped by DailyMax)</returns>
     public int GetTax(IVehicle vehicle, DateTime[] dates)
     {
         if (vehicle == null) throw new ArgumentNullException(nameof(vehicle));
-        if (vehicle.IsTollFree || dates == null || dates.Length == 0) return 0;
+        if (dates == null || dates.Length == 0) return 0;
 
-        // Sort timestamps ascending
-        Array.Sort(dates);
+        // Sort dates in chronological order
+        var sortedDates = dates.OrderBy(d => d).ToArray();
 
-        DateTime intervalStart = dates[0];
         int totalFee = 0;
+        DateTime intervalStart = sortedDates[0];
+        int intervalFee = GetTollFee(intervalStart, vehicle);
 
-        // Track the highest fee in current 60‑minute window
-        int windowMaxFee = GetFeeForDate(intervalStart);
-
-        foreach (var date in dates.Skip(1))
+        for (int i = 1; i < sortedDates.Length; i++)
         {
-            if (_taxRule.IsTollFreeDate(date)) continue;
+            var currentDate = sortedDates[i];
+            int currentFee = GetTollFee(currentDate, vehicle);
 
-            int fee = GetFeeForDate(date);
-            var diff = date - intervalStart;
+            // Calculate minutes difference
+            double minutes = (currentDate - intervalStart).TotalMinutes;
 
-            if (diff.TotalMinutes <= 60)
+            if (minutes <= 60)
             {
-                // still within same window → update windowMaxFee if this fee is higher
-                windowMaxFee = Math.Max(windowMaxFee, fee);
+                // Single-charge rule: take highest fee in the 60-minute window
+                intervalFee = Math.Max(intervalFee, currentFee);
             }
             else
             {
-                // 60+ minutes since intervalStart: close previous window, add its max fee
-                totalFee += windowMaxFee;
-
-                // start new window
-                intervalStart = date;
-                windowMaxFee = fee;
+                totalFee += intervalFee;
+                intervalStart = currentDate;
+                intervalFee = currentFee;
             }
         }
 
-        totalFee += windowMaxFee;
+        // Add fee for last interval
+        totalFee += intervalFee;
 
         // Apply daily maximum
         return Math.Min(totalFee, _taxRule.DailyMax);
     }
 
     /// <summary>
-    /// Gets the toll fee for a specific timestamp using the configured intervals.
+    /// Determines the toll fee for a vehicle at a specific timestamp
     /// </summary>
-    /// <param name="date">Timestamp</param>
-    /// <returns>Fee in SEK</returns>
-    private int GetFeeForDate(DateTime date)
+    private int GetTollFee(DateTime date, IVehicle vehicle)
     {
-        TimeSpan timeOfDay = date.TimeOfDay;
+        // Toll-free vehicle or date
+        if (IsTollFreeVehicle(vehicle) || IsTollFreeDate(date))
+            return 0;
 
-        var interval = _taxRule.Intervals.FirstOrDefault(i => i.Contains(timeOfDay));
+        var time = date.TimeOfDay;
+
+        // Find the interval matching the timestamp
+        var interval = _taxRule.Intervals
+            .FirstOrDefault(i => time >= i.Start && time < i.End);
+
         return interval?.Fee ?? 0;
+    }
+
+    /// <summary>
+    /// Determines if the vehicle is exempt from congestion tax
+    /// </summary>
+    private bool IsTollFreeVehicle(IVehicle vehicle)
+    {
+        return _taxRule.TollFreeVehicleTypes.Contains(vehicle.VehicleType);
+    }
+
+    /// <summary>
+    /// Determines if the date is toll-free (weekends, July, or DB-specified holidays)
+    /// </summary>
+    private bool IsTollFreeDate(DateTime date)
+    {
+        // If domain has explicit toll-free dates, consult them first
+        if (_taxRule.TollFreeDates != null && _taxRule.TollFreeDates.Any(d => d.Date == date.Date))
+            return true;
+
+        // Weekends
+        if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
+            return true;
+
+        // July (summer)
+        if (date.Month == 7)
+            return true;
+
+        // fallback to optional predicate if provided
+        if (_taxRule.IsTollFreeDate != null && _taxRule.IsTollFreeDate(date))
+            return true;
+
+        return false;
     }
 }
