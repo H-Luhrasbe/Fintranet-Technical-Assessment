@@ -37,26 +37,33 @@ public class CongestionTaxCalculator
         DateTime intervalStart = dates[0];
         int totalFee = 0;
 
-        foreach (var date in dates)
+        // Track the highest fee in current 60‑minute window
+        int windowMaxFee = GetFeeForDate(intervalStart);
+
+        foreach (var date in dates.Skip(1))
         {
             if (_taxRule.IsTollFreeDate(date)) continue;
 
             int fee = GetFeeForDate(date);
             var diff = date - intervalStart;
 
-            // Apply single charge 60-minute rule
             if (diff.TotalMinutes <= 60)
             {
-                int tempFee = GetFeeForDate(intervalStart);
-                totalFee -= tempFee;
-                totalFee += Math.Max(tempFee, fee);
+                // still within same window → update windowMaxFee if this fee is higher
+                windowMaxFee = Math.Max(windowMaxFee, fee);
             }
             else
             {
-                totalFee += fee;
-                intervalStart = date; // reset window
+                // 60+ minutes since intervalStart: close previous window, add its max fee
+                totalFee += windowMaxFee;
+
+                // start new window
+                intervalStart = date;
+                windowMaxFee = fee;
             }
         }
+
+        totalFee += windowMaxFee;
 
         // Apply daily maximum
         return Math.Min(totalFee, _taxRule.DailyMax);
