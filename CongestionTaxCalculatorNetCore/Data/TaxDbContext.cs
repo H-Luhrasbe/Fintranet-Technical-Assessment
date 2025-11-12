@@ -8,6 +8,7 @@ public class TaxDbContext : DbContext
     public DbSet<TaxRuleEntity> TaxRules { get; set; } = null!;
     public DbSet<TaxIntervalEntity> TaxIntervals { get; set; } = null!;
     public DbSet<TollFreeDateEntity> TollFreeDates { get; set; } = null!;
+    public DbSet<TollFreeVehicleEntity> TollFreeVehicles { get; set; }
 
     public TaxDbContext(DbContextOptions<TaxDbContext> options)
         : base(options)

@@ -19,7 +19,6 @@ public class CongestionTaxCalculator
         _taxRule = taxRule ?? throw new ArgumentNullException(nameof(taxRule));
     }
 
-
     /// <summary>
     /// Calculate total congestion tax for a vehicle on a single day.
     /// </summary>

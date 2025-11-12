@@ -46,5 +46,16 @@ public static class SeedData
 
         context.TaxRules.Add(gothenburgRule);
         context.SaveChanges();
+
+        context.TollFreeVehicles.AddRange(
+        [
+            new() { VehicleType = "Motorcycle" },
+            new() { VehicleType = "Tractor" },
+            new() { VehicleType = "Emergency" },
+            new() { VehicleType = "Diplomat" },
+            new() { VehicleType = "Foreign" },
+            new() { VehicleType = "Military" }
+        ]);
+        context.SaveChanges();
     }
 }

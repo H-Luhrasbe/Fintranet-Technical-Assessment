@@ -11,4 +11,5 @@ public class TaxRuleEntity
 
     public List<TaxIntervalEntity> Intervals { get; set; } = new();
     public List<TollFreeDateEntity> TollFreeDates { get; set; } = new();
+    public List<TollFreeVehicleEntity> TollFreeVehicles { get; set; } = new();
 }

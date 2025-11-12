@@ -28,8 +28,12 @@ public static class TaxRuleMapper
                 .ToList(),
             IsTollFreeDate = date =>
                 date.Month == 7 || // July
-                date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday ||
-                entity.TollFreeDates.Any(t => t.Date.Date == date.Date)
+                date.DayOfWeek == DayOfWeek.Saturday ||
+                date.DayOfWeek == DayOfWeek.Sunday ||
+                entity.TollFreeDates.Any(t => t.Date.Date == date.Date),
+            TollFreeVehicleTypes = entity.TollFreeVehicles
+                .Select(v => v.VehicleType)
+                .ToList()
         };
     }
 }

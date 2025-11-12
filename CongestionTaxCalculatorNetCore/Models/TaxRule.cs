@@ -19,4 +19,9 @@ public class TaxRule
     /// Determines if a given date is toll-free (weekend, holiday, July, etc.)
     /// </summary>
     public Func<DateTime, bool> IsTollFreeDate { get; set; }
+
+    /// <summary>
+    /// List of toll-free vehicle types for this rule
+    /// </summary>
+    public List<string> TollFreeVehicleTypes { get; set; } = new();
 }
