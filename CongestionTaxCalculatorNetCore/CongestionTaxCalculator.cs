@@ -1,5 +1,7 @@
-using System;
-using congestion.calculator;
+using CongestionTaxCalculatorNetCore.Contracts;
+
+namespace CongestionTaxCalculatorNetCore;
+
 public class CongestionTaxCalculator
 {
 
@@ -9,7 +11,7 @@ public class CongestionTaxCalculator
     /// <param name="vehicle">the vehicle</param>
     /// <param name="dates">date and time of all passes on one day</param>
     /// <returns>the total congestion tax for that day</returns>
-    public int GetTax(Vehicle vehicle, DateTime[] dates)
+    public int GetTax(IVehicle vehicle, DateTime[] dates)
     {
         if (dates == null || dates.Length == 0) return 0;
 
@@ -41,10 +43,10 @@ public class CongestionTaxCalculator
         return totalFee;
     }
 
-    private bool IsTollFreeVehicle(Vehicle vehicle)
+    private bool IsTollFreeVehicle(IVehicle vehicle)
     {
         if (vehicle == null) return false;
-        String vehicleType = vehicle.GetVehicleType();
+        String vehicleType = vehicle.VehicleType;
         return vehicleType.Equals(TollFreeVehicles.Motorcycle.ToString()) ||
                vehicleType.Equals(TollFreeVehicles.Tractor.ToString()) ||
                vehicleType.Equals(TollFreeVehicles.Emergency.ToString()) ||
@@ -53,7 +55,7 @@ public class CongestionTaxCalculator
                vehicleType.Equals(TollFreeVehicles.Military.ToString());
     }
 
-    public int GetTollFee(DateTime date, Vehicle vehicle)
+    public int GetTollFee(DateTime date, IVehicle vehicle)
     {
         if (IsTollFreeDate(date) || IsTollFreeVehicle(vehicle)) return 0;
         

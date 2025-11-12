@@ -1,6 +1,6 @@
-﻿using congestion.calculator.Contracts;
+﻿using CongestionTaxCalculatorNetCore.Contracts;
 
-namespace congestion.calculator.Models;
+namespace CongestionTaxCalculatorNetCore.Models;
 
 public class EmergencyVehicle : IVehicle
 {
