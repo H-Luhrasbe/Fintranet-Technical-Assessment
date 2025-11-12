@@ -59,6 +59,7 @@ public class CongestionTaxCalculator
         
         int totalMinutes = date.Hour * 60 + date.Minute;
 
+        // total minutes since midnight
         if (totalMinutes >= 360 && totalMinutes <= 389) return 8;   // 06:00–06:29
         if (totalMinutes >= 390 && totalMinutes <= 419) return 13;  // 06:30–06:59
         if (totalMinutes >= 420 && totalMinutes <= 479) return 18;  // 07:00–07:59
