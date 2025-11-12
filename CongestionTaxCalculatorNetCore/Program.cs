@@ -1,39 +1,19 @@
 ﻿using CongestionTaxCalculatorNetCore;
 using CongestionTaxCalculatorNetCore.Data;
 using CongestionTaxCalculatorNetCore.Models;
-using Microsoft.EntityFrameworkCore;
 
-var options = new DbContextOptionsBuilder<TaxDbContext>()
-    .UseInMemoryDatabase(Constants.Database)
-    .Options;
-
-using var context = new TaxDbContext(options);
+using var context = DbContextFactory.CreateInMemoryDbContext();
 
 // Seed data
-SeedData.SeedGothenburg2013(context);
+DatabaseInitializer.Initialize(context);
 
-// Load rule from DB
-var ruleEntity = context.TaxRules
-    .Include(r => r.Intervals)
-    .Include(r => r.TollFreeDates)
-    .First(r => r.Name == Constants.GothenburgRule);
-
-// Convert to TaxRule
-var taxRule = new TaxRule
-{
-    DailyMax = ruleEntity.DailyMax,
-    Intervals = ruleEntity.Intervals
-        .Select(i => new TaxInterval { Start = i.Start, End = i.End, Fee = i.Fee })
-        .ToList(),
-    IsTollFreeDate = date =>
-        date.Month == 7 || date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday ||
-        ruleEntity.TollFreeDates.Any(t => t.Date.Date == date.Date)
-};
+// Load domain TaxRule
+var taxRule = TaxRuleLoader.LoadGothenburg2013Rule(context);
 
 // Create calculator
 var calculator = new CongestionTaxCalculator(taxRule);
 
-// Example usage
+// Example vehicle and dates
 var car = new Car();
 var dates = new DateTime[]
 {
@@ -41,4 +21,5 @@ var dates = new DateTime[]
     new(2013, 2, 7, 15, 27, 0)
 };
 
+// Calculate and print
 Console.WriteLine($"Total tax: {calculator.GetTax(car, dates)} SEK");
