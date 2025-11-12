@@ -14,14 +14,15 @@ public static class SeedData
             DailyMax = 60,
             Intervals =
             [
-                new() { Start = TimeSpan.FromHours(6), End = TimeSpan.FromMinutes(6 * 60 + 29), Fee = 8 },
-                new() { Start = TimeSpan.FromMinutes(6 * 60 + 30), End = TimeSpan.FromMinutes(6 * 60 + 59), Fee = 13 },
-                new() { Start = TimeSpan.FromHours(7), End = TimeSpan.FromHours(7).Add(TimeSpan.FromMinutes(59)), Fee = 18 },
-                new() { Start = TimeSpan.FromHours(8), End = TimeSpan.FromMinutes(14 * 60 + 59), Fee = 8 },
-                new() { Start = TimeSpan.FromMinutes(15 * 60), End = TimeSpan.FromMinutes(15 * 60 + 29), Fee = 13 },
-                new() { Start = TimeSpan.FromMinutes(15 * 60 + 30), End = TimeSpan.FromMinutes(16 * 60 + 59), Fee = 18 },
-                new() { Start = TimeSpan.FromMinutes(17 * 60), End = TimeSpan.FromMinutes(17 * 60 + 59), Fee = 13 },
-                new() { Start = TimeSpan.FromMinutes(18 * 60), End = TimeSpan.FromMinutes(18 * 60 + 29), Fee = 8 }
+                new() { Start = TimeSpan.FromHours(6.0), End = TimeSpan.FromHours(6.5), Fee = 8 },
+                new() { Start = TimeSpan.FromHours(6.5), End = TimeSpan.FromHours(7.0), Fee = 13 },
+                new() { Start = TimeSpan.FromHours(7.0), End = TimeSpan.FromHours(8.0), Fee = 18 },
+                new() { Start = TimeSpan.FromHours(8.0), End = TimeSpan.FromHours(8.5), Fee = 13 },
+                new() { Start = TimeSpan.FromHours(8.5), End = TimeSpan.FromHours(15.0), Fee = 8 },
+                new() { Start = TimeSpan.FromHours(15.0), End = TimeSpan.FromHours(15.5), Fee = 13 },
+                new() { Start = TimeSpan.FromHours(15.5), End = TimeSpan.FromHours(17.0), Fee = 18 },
+                new() { Start = TimeSpan.FromHours(17.0), End = TimeSpan.FromHours(18.0), Fee = 13 },
+                new() { Start = TimeSpan.FromHours(18.0), End = TimeSpan.FromHours(18.5), Fee = 8 },
             ],
             TollFreeDates =
             [
@@ -41,21 +42,19 @@ public static class SeedData
                 new() { Date = new DateTime(2013, 12, 25) },
                 new() { Date = new DateTime(2013, 12, 26) },
                 new() { Date = new DateTime(2013, 12, 31) }
+            ],
+            TollFreeVehicles =
+            [
+                new() { VehicleType = "Motorcycle" },
+                new() { VehicleType = "Tractor" },
+                new() { VehicleType = "Emergency" },
+                new() { VehicleType = "Diplomat" },
+                new() { VehicleType = "Foreign" },
+                new() { VehicleType = "Military" }
             ]
         };
 
         context.TaxRules.Add(gothenburgRule);
-        context.SaveChanges();
-
-        context.TollFreeVehicles.AddRange(
-        [
-            new() { VehicleType = "Motorcycle" },
-            new() { VehicleType = "Tractor" },
-            new() { VehicleType = "Emergency" },
-            new() { VehicleType = "Diplomat" },
-            new() { VehicleType = "Foreign" },
-            new() { VehicleType = "Military" }
-        ]);
         context.SaveChanges();
     }
 }
