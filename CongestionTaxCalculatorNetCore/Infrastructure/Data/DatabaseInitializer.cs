@@ -1,4 +1,6 @@
-﻿namespace CongestionTaxCalculatorNetCore.Data;
+﻿using CongestionTaxCalculatorNetCore.Infrastructure.SeedData;
+
+namespace CongestionTaxCalculatorNetCore.Infrastructure.Data;
 
 /// <summary>
 /// Responsible for seeding in-memory database with initial data
@@ -7,6 +9,6 @@ public static class DatabaseInitializer
 {
     public static void Initialize(TaxDbContext context)
     {
-        SeedData.SeedGothenburg2013(context);
+        TaxDataSeeder.SeedGothenburg2013(context);
     }
 }

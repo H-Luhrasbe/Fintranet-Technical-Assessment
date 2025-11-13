@@ -1,5 +1,5 @@
-using CongestionTaxCalculatorNetCore.Contracts;
-using CongestionTaxCalculatorNetCore.Models;
+using CongestionTaxCalculatorNetCore.Domain.Interfaces;
+using CongestionTaxCalculatorNetCore.Domain.Models;
 
 namespace CongestionTaxCalculatorNetCore;
 

@@ -1,4 +1,4 @@
-﻿namespace CongestionTaxCalculatorNetCore.Entities;
+﻿namespace CongestionTaxCalculatorNetCore.Infrastructure.Entities;
 
 /// <summary>
 /// Represents a city/year tax rule

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace CongestionTaxCalculatorNetCore.Data;
+namespace CongestionTaxCalculatorNetCore.Infrastructure.Data;
 
 /// <summary>
 /// Factory to create TaxDbContext with in-memory database
@@ -10,7 +10,7 @@ public static class DbContextFactory
     public static TaxDbContext CreateInMemoryDbContext()
     {
         var options = new DbContextOptionsBuilder<TaxDbContext>()
-            .UseInMemoryDatabase("TaxRulesDb")
+            .UseInMemoryDatabase(Constants.Database)
             .Options;
 
         return new TaxDbContext(options);

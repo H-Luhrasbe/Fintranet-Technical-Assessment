@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CongestionTaxCalculatorNetCore.Entities;
+namespace CongestionTaxCalculatorNetCore.Infrastructure.Entities;
 
 /// <summary>
 /// Represents a vehicle type that is exempt from congestion tax

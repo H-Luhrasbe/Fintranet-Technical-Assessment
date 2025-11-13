@@ -1,6 +1,6 @@
-﻿using CongestionTaxCalculatorNetCore.Contracts;
+﻿using CongestionTaxCalculatorNetCore.Domain.Interfaces;
 
-namespace CongestionTaxCalculatorNetCore.Models;
+namespace CongestionTaxCalculatorNetCore.Domain.Models;
 
 /// <summary>
 /// Represents a normal car that is subject to congestion tax.

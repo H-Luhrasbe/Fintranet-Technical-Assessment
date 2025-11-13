@@ -1,4 +1,4 @@
-﻿namespace CongestionTaxCalculatorNetCore.Models;
+﻿namespace CongestionTaxCalculatorNetCore.Domain.Models;
 
 /// <summary>
 /// Domain model for tax rules used by the calculator.

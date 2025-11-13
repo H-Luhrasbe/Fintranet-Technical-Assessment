@@ -1,7 +1,7 @@
-﻿using CongestionTaxCalculatorNetCore.Entities;
-using CongestionTaxCalculatorNetCore.Models;
+﻿using CongestionTaxCalculatorNetCore.Domain.Models;
+using CongestionTaxCalculatorNetCore.Infrastructure.Entities;
 
-namespace CongestionTaxCalculatorNetCore.Mappers;
+namespace CongestionTaxCalculatorNetCore.Domain.Mappers;
 
 /// <summary>
 /// Maps EF Core entities to domain objects

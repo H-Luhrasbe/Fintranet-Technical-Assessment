@@ -1,8 +1,9 @@
-﻿using CongestionTaxCalculatorNetCore.Entities;
+﻿using CongestionTaxCalculatorNetCore.Infrastructure.Data;
+using CongestionTaxCalculatorNetCore.Infrastructure.Entities;
 
-namespace CongestionTaxCalculatorNetCore.Data;
+namespace CongestionTaxCalculatorNetCore.Infrastructure.SeedData;
 
-public static class SeedData
+public static class TaxDataSeeder
 {
     public static void SeedGothenburg2013(TaxDbContext context)
     {

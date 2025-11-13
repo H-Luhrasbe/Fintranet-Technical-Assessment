@@ -1,14 +1,18 @@
 ﻿using CongestionTaxCalculatorNetCore;
-using CongestionTaxCalculatorNetCore.Data;
-using CongestionTaxCalculatorNetCore.Models;
+using CongestionTaxCalculatorNetCore.Domain.Models;
+using CongestionTaxCalculatorNetCore.Infrastructure.Data;
+using CongestionTaxCalculatorNetCore.Infrastructure.Repositories;
 
 using var context = DbContextFactory.CreateInMemoryDbContext();
 
 // Seed data
 DatabaseInitializer.Initialize(context);
 
+// Loading repository
+var ruleRepo = new InMemoryTaxRuleRepository();
+
 // Load domain TaxRule
-var taxRule = TaxRuleLoader.LoadGothenburg2013Rule(context);
+var taxRule = ruleRepo.GetGothenburgRule(context);
 
 // Create calculator
 var calculator = new CongestionTaxCalculator(taxRule);

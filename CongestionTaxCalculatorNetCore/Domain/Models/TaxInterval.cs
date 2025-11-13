@@ -1,4 +1,4 @@
-﻿namespace CongestionTaxCalculatorNetCore.Models;
+﻿namespace CongestionTaxCalculatorNetCore.Domain.Models;
 
 /// <summary>
 /// Represents a single congestion tax interval with a start time, end time, and fee.

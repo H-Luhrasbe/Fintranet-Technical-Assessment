@@ -1,7 +1,7 @@
-﻿using CongestionTaxCalculatorNetCore.Entities;
+﻿using CongestionTaxCalculatorNetCore.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CongestionTaxCalculatorNetCore.Data;
+namespace CongestionTaxCalculatorNetCore.Infrastructure.Data;
 
 public class TaxDbContext : DbContext
 {

@@ -1,6 +1,6 @@
-﻿using CongestionTaxCalculatorNetCore.Contracts;
+﻿using CongestionTaxCalculatorNetCore.Domain.Interfaces;
 
-namespace CongestionTaxCalculatorNetCore.Models;
+namespace CongestionTaxCalculatorNetCore.Domain.Models;
 
 /// <summary>
 /// Represents a motorbike, which is exempt from congestion tax.

@@ -1,4 +1,4 @@
-﻿namespace CongestionTaxCalculatorNetCore.Contracts;
+﻿namespace CongestionTaxCalculatorNetCore.Domain.Interfaces;
 
 /// <summary>
 /// Represents a vehicle that may be subject to congestion tax.
