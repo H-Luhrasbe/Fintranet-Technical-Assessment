@@ -7,7 +7,5 @@ namespace CongestionTaxCalculatorNetCore.Domain.Models;
 /// </summary>
 public class Motorbike : IVehicle
 {
-    public bool IsTollFree => true; // Motorbikes are exempt
-
-    public string VehicleType => "Motorbike";
+    public string Type => "Motorbike";
 }

@@ -28,7 +28,7 @@ public abstract class BaseTaxCalculator : ITaxCalculator
 
         var time = date.TimeOfDay;
 
-        // Find the rule matching the timestamp
+        // Find the rate matching the timestamp
         var rate = TaxRule.Rates
             .FirstOrDefault(i => time >= i.StartTime && time < i.EndTime);
 
@@ -36,11 +36,14 @@ public abstract class BaseTaxCalculator : ITaxCalculator
     }
 
     /// <summary>
-    /// Determines if the vehicle is exempt from congestion tax
+    /// Checks if the vehicle is toll-free according to the TaxRule.
     /// </summary>
     protected bool IsTollFreeVehicle(IVehicle vehicle)
     {
-        return TaxRule.TollFreeVehicleTypes.Contains(vehicle.VehicleType);
+        if (vehicle == null) return false;
+
+        return TaxRule.TollFreeVehicle
+            .Any(v => string.Equals(v, vehicle.Type, StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>

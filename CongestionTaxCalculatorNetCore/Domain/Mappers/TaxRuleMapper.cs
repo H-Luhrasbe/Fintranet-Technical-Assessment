@@ -29,7 +29,7 @@ public static class TaxRuleMapper
             TollFreeDates = entity.TollFreeDates
                 .Select(t => t.Date.Date)
                 .ToList(),
-            TollFreeVehicleTypes = entity.TollFreeVehicles
+            TollFreeVehicle = entity.TollFreeVehicles
                 .Select(v => v.VehicleType)
                 .ToList(),
         };

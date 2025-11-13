@@ -19,14 +19,4 @@ public class TaxRate
     /// Fee for this rate
     /// </summary>
     public int Amount { get; set; }
-
-    /// <summary>
-    /// Checks if a given time falls inside this rate
-    /// </summary>
-    /// <param name="time">Time to check</param>
-    /// <returns>True if inside the rate</returns>
-    public bool Contains(TimeSpan time)
-    {
-        return time >= StartTime && time <= EndTime;
-    }
 }
