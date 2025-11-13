@@ -1,5 +1,5 @@
 ﻿using CongestionTaxCalculatorNetCore;
-using CongestionTaxCalculatorNetCore.Domain.Models;
+using CongestionTaxCalculatorNetCore.Domain.Models.Vehicles;
 using CongestionTaxCalculatorNetCore.Domain.Services;
 using CongestionTaxCalculatorNetCore.Infrastructure.Data;
 using CongestionTaxCalculatorNetCore.Infrastructure.Repositories;

@@ -1,8 +1,8 @@
 ﻿using CongestionTaxCalculatorNetCore.Domain.Interfaces;
 
-namespace CongestionTaxCalculatorNetCore.Domain.Models;
+namespace CongestionTaxCalculatorNetCore.Domain.Models.Vehicles;
 
-public class DiplomatCar : IVehicle
+public class Diplomat : IVehicle
 {
     public string Type => "Diplomat";
 }
