@@ -63,10 +63,6 @@ public abstract class BaseTaxCalculator : ITaxCalculator
         if (date.Month == 7)
             return true;
 
-        // fallback to optional predicate if provided
-        if (TaxRule.IsTollFreeDate != null && TaxRule.IsTollFreeDate(date))
-            return true;
-
         return false;
     }
 }

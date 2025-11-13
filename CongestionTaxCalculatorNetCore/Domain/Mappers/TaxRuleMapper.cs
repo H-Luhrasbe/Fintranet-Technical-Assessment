@@ -26,18 +26,12 @@ public static class TaxRuleMapper
                     Amount = i.Amount
                 })
                 .ToList(),
-            // Populate default value for the IsTollFreeDate property
-            IsTollFreeDate = date =>
-                date.Month == 7 || // July
-                date.DayOfWeek == DayOfWeek.Saturday ||
-                date.DayOfWeek == DayOfWeek.Sunday ||
-                entity.TollFreeDates.Any(t => t.Date.Date == date.Date),
+            TollFreeDates = entity.TollFreeDates
+                .Select(t => t.Date.Date)
+                .ToList(),
             TollFreeVehicleTypes = entity.TollFreeVehicles
                 .Select(v => v.VehicleType)
                 .ToList(),
-            TollFreeDates = entity.TollFreeDates
-                .Select(t => t.Date.Date)
-                .ToList()
         };
 
         return rule;
