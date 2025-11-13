@@ -16,34 +16,17 @@ var ruleRepo = new InMemoryTaxRuleRepository(context);
 var service = new TaxCalculatorService(ruleRepo);
 
 // Example vehicle 
-var vehicle = new Car();
+var car = new Car();
+var motorbike = new Motorbike();
 
 // Example dates
-var passageTimes = new DateTime[]
-{
-    new(2013, 2, 7, 6, 23, 27),
-    new(2013, 2, 7, 15, 27, 0)
-};
-
-var tax = await service.CalculateTaxAsync(Constants.Cities.Gothenburg, vehicle, passageTimes);
-Console.WriteLine($"Total Tax: {tax} SEK");
-
-/*
-// Load domain TaxRule
-var taxRule = ruleRepo.GetGothenburgRule(context);
-
-// Create calculator
-var calculator = new CongestionTaxCalculator(taxRule);
-
-// Example vehicle and dates
-var car = new Car();
 var dates = new DateTime[]
 {
     new(2013, 2, 7, 6, 23, 27),
     new(2013, 2, 7, 15, 27, 0)
 };
 
-// Calculate and print
-Console.WriteLine($"Total tax: {calculator.GetTax(car, dates)} SEK");
-
-*/
+var carTax = await service.CalculateTaxAsync(Constants.Cities.Gothenburg, car, dates);
+var motorbikeTax = await service.CalculateTaxAsync(Constants.Cities.Gothenburg, motorbike, dates);
+Console.WriteLine($"Total Car Tax: {carTax} SEK");
+Console.WriteLine($"Total Motorbike Tax: {motorbikeTax} SEK");

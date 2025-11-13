@@ -2,7 +2,7 @@
 
 namespace CongestionTaxCalculatorNetCore.Domain.Models.Vehicles;
 
-public class Tractor : IVehicle
+public class Bus : IVehicle
 {
-    public string Type => "Tractor";
+    public string Type => Constants.VehiclesTypes.Bus;
 }

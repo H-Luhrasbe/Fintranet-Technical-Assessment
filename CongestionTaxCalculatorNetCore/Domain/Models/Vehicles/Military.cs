@@ -4,5 +4,5 @@ namespace CongestionTaxCalculatorNetCore.Domain.Models.Vehicles;
 
 public class Military : IVehicle
 {
-    public string Type => "Military";
+    public string Type => Constants.VehiclesTypes.Military;
 }

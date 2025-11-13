@@ -14,4 +14,15 @@ public static class Constants
     {
         public const string Gothenburg = "Gothenburg";
     }
+
+    public static class VehiclesTypes
+    {
+        public const string Bus = "Bus";
+        public const string Car = "Car";
+        public const string Diplomat = "Diplomat";
+        public const string Emergency = "Emergency";
+        public const string Foreign = "Foreign";
+        public const string Military = "Military";
+        public const string Motorcycle = "Motorcycle";
+    }
 }

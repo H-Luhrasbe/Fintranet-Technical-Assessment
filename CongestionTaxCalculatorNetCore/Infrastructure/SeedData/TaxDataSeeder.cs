@@ -46,12 +46,12 @@ public static class TaxDataSeeder
             ],
             TollFreeVehicles =
             [
-                new() { VehicleType = "Motorcycle" },
-                new() { VehicleType = "Tractor" },
-                new() { VehicleType = "Emergency" },
-                new() { VehicleType = "Diplomat" },
-                new() { VehicleType = "Foreign" },
-                new() { VehicleType = "Military" }
+                new() { VehicleType = Constants.VehiclesTypes.Bus },
+                new() { VehicleType = Constants.VehiclesTypes.Diplomat },
+                new() { VehicleType = Constants.VehiclesTypes.Emergency },
+                new() { VehicleType = Constants.VehiclesTypes.Foreign },
+                new() { VehicleType = Constants.VehiclesTypes.Military },
+                new() { VehicleType = Constants.VehiclesTypes.Motorcycle },
             ]
         };
 
