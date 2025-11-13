@@ -10,7 +10,7 @@ public static class DbContextFactory
     public static TaxDbContext CreateInMemoryDbContext()
     {
         var options = new DbContextOptionsBuilder<TaxDbContext>()
-            .UseInMemoryDatabase(Constants.Database)
+            .UseInMemoryDatabase(Constants.ConnectionStrings.DatabaseName)
             .Options;
 
         return new TaxDbContext(options);

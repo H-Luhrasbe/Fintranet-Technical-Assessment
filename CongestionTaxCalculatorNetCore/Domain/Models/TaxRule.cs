@@ -8,12 +8,12 @@ public class TaxRule
     /// <summary>
     /// Maximum fee charged per day.
     /// </summary>
-    public int DailyMax { get; set; } = 60;
+    public int MaxDailyTax { get; set; } = 60;
 
     /// <summary>
     /// List of tax intervals for a day.
     /// </summary>
-    public List<TaxInterval> Intervals { get; set; } = new();
+    public List<TaxRate> Rates { get; set; } = new();
 
     /// <summary>
     /// List of vehicle type names that are toll-free under this rule.

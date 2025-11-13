@@ -1,7 +1,17 @@
 ﻿namespace CongestionTaxCalculatorNetCore;
 
+/// <summary>
+/// Constants are used instead of magic string
+/// </summary>
 public static class Constants
 {
-    public const string Database = "TaxRulesDb";
-    public const string GothenburgRule = "Gothenburg_2013";
+    public static class ConnectionStrings
+    {
+        public const string DatabaseName = "TaxRulesDb";
+    }
+
+    public static class Cities
+    {
+        public const string Gothenburg = "Gothenburg";
+    }
 }

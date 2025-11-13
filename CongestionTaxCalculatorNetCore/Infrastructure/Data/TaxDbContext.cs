@@ -6,7 +6,7 @@ namespace CongestionTaxCalculatorNetCore.Infrastructure.Data;
 public class TaxDbContext : DbContext
 {
     public DbSet<TaxRuleEntity> TaxRules { get; set; } = null!;
-    public DbSet<TaxIntervalEntity> TaxIntervals { get; set; } = null!;
+    public DbSet<TaxRateEntity> TaxIntervals { get; set; } = null!;
     public DbSet<TollFreeDateEntity> TollFreeDates { get; set; } = null!;
     public DbSet<TollFreeVehicleEntity> TollFreeVehicles { get; set; }
 
@@ -18,7 +18,7 @@ public class TaxDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TaxRuleEntity>()
-            .HasMany(r => r.Intervals)
+            .HasMany(r => r.Rates)
             .WithOne(i => i.TaxRule)
             .HasForeignKey(i => i.TaxRuleEntityId);
 

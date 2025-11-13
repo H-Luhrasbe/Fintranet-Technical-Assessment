@@ -11,19 +11,19 @@ public static class TaxDataSeeder
 
         var gothenburgRule = new TaxRuleEntity
         {
-            Name = Constants.GothenburgRule,
-            DailyMax = 60,
-            Intervals =
+            City = Constants.Cities.Gothenburg,
+            MaxDailyTax = 60,
+            Rates =
             [
-                new() { Start = TimeSpan.FromHours(6.0), End = TimeSpan.FromHours(6.5), Fee = 8 },
-                new() { Start = TimeSpan.FromHours(6.5), End = TimeSpan.FromHours(7.0), Fee = 13 },
-                new() { Start = TimeSpan.FromHours(7.0), End = TimeSpan.FromHours(8.0), Fee = 18 },
-                new() { Start = TimeSpan.FromHours(8.0), End = TimeSpan.FromHours(8.5), Fee = 13 },
-                new() { Start = TimeSpan.FromHours(8.5), End = TimeSpan.FromHours(15.0), Fee = 8 },
-                new() { Start = TimeSpan.FromHours(15.0), End = TimeSpan.FromHours(15.5), Fee = 13 },
-                new() { Start = TimeSpan.FromHours(15.5), End = TimeSpan.FromHours(17.0), Fee = 18 },
-                new() { Start = TimeSpan.FromHours(17.0), End = TimeSpan.FromHours(18.0), Fee = 13 },
-                new() { Start = TimeSpan.FromHours(18.0), End = TimeSpan.FromHours(18.5), Fee = 8 },
+                new() { StartTime = TimeSpan.FromHours(6.0), EndTime = TimeSpan.FromHours(6.5), Amount = 8 },
+                new() { StartTime = TimeSpan.FromHours(6.5), EndTime = TimeSpan.FromHours(7.0), Amount = 13 },
+                new() { StartTime = TimeSpan.FromHours(7.0), EndTime = TimeSpan.FromHours(8.0), Amount = 18 },
+                new() { StartTime = TimeSpan.FromHours(8.0), EndTime = TimeSpan.FromHours(8.5), Amount = 13 },
+                new() { StartTime = TimeSpan.FromHours(8.5), EndTime = TimeSpan.FromHours(15.0), Amount = 8 },
+                new() { StartTime = TimeSpan.FromHours(15.0), EndTime = TimeSpan.FromHours(15.5), Amount = 13 },
+                new() { StartTime = TimeSpan.FromHours(15.5), EndTime = TimeSpan.FromHours(17.0), Amount = 18 },
+                new() { StartTime = TimeSpan.FromHours(17.0), EndTime = TimeSpan.FromHours(18.0), Amount = 13 },
+                new() { StartTime = TimeSpan.FromHours(18.0), EndTime = TimeSpan.FromHours(18.5), Amount = 8 },
             ],
             TollFreeDates =
             [

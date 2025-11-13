@@ -17,15 +17,16 @@ public static class TaxRuleMapper
 
         var rule = new TaxRule
         {
-            DailyMax = entity.DailyMax,
-            Intervals = entity.Intervals
-                .Select(i => new TaxInterval
+            MaxDailyTax = entity.MaxDailyTax,
+            Rates = entity.Rates
+                .Select(i => new TaxRate
                 {
-                    Start = i.Start,
-                    End = i.End,
-                    Fee = i.Fee
+                    StartTime = i.StartTime,
+                    EndTime = i.EndTime,
+                    Amount = i.Amount
                 })
                 .ToList(),
+            // Populate default value for the IsTollFreeDate property
             IsTollFreeDate = date =>
                 date.Month == 7 || // July
                 date.DayOfWeek == DayOfWeek.Saturday ||
