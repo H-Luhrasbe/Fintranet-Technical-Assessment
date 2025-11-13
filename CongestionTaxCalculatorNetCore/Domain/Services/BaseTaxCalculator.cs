@@ -8,7 +8,7 @@ namespace CongestionTaxCalculatorNetCore.Domain.Services;
 /// </summary>
 public abstract class BaseTaxCalculator : ITaxCalculator
 {
-    protected TaxRule TaxRule { set; get; }
+    protected TaxRule TaxRule { set; get; } = null!;
 
     /// <summary>
     /// Performs the actual calculation of the tax. 

@@ -6,7 +6,7 @@ namespace CongestionTaxCalculatorNetCore.Infrastructure.Data;
 public class TaxDbContext : DbContext
 {
     public DbSet<TaxRuleEntity> TaxRules { get; set; } = null!;
-    public DbSet<TaxRateEntity> TaxIntervals { get; set; } = null!;
+    public DbSet<TaxRateEntity> TaxRates { get; set; } = null!;
     public DbSet<TollFreeDateEntity> TollFreeDates { get; set; } = null!;
     public DbSet<TollFreeVehicleEntity> TollFreeVehicles { get; set; }
 

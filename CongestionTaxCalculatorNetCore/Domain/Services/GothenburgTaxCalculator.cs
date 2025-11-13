@@ -27,10 +27,10 @@ public class GothenburgTaxCalculator : BaseTaxCalculator
 
         // Sort dates in chronological order
         var sortedDates = dates.OrderBy(d => d).ToArray();
-        int totalAmount = 0;
+        var totalAmount = 0;
 
         DateTime ruleStart = sortedDates[0];
-        int ruleAmount = GetTollFee(ruleStart, vehicle);
+        var ruleAmount = GetTollFee(ruleStart, vehicle);
 
         // Ensure we calculate in chronological order
         foreach (var date in sortedDates)
@@ -42,7 +42,7 @@ public class GothenburgTaxCalculator : BaseTaxCalculator
             var rate = GetTollFee(date, vehicle);
 
             // Difference in minutes between two passage times
-            double minutes = (date - ruleStart).TotalMinutes;
+            var minutes = (date - ruleStart).TotalMinutes;
 
             if (minutes <= 60)
             {
